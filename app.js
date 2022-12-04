@@ -1,10 +1,15 @@
 const express = require('express')
 const path = require('path')
 const dotenv = require('dotenv')
+const cors = require('cors')
 
 dotenv.config()
 
 const routes = require('./routes')
+
+app.use(cors({
+    credentials: true
+}))
 
 const app = express()
 app.set('port', process.env.NODE_PORT || 3290)
