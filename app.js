@@ -4,13 +4,16 @@ const dotenv = require('dotenv')
 const cors = require('cors')
 const app = express()
 const routes = require('./routes')
+const {
+    logs
+} = require('./utils')
 
 dotenv.config()
 
 app.use(cors({
     credentials: true
 }))
-app.set('port', process.env.NODE_PORT || 3290)
+app.set('port', process.env.NODE_PORT || 3010)
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
@@ -32,5 +35,5 @@ app.use((err, req, res, next) => {
 })
 
 app.listen(app.get('port'), () => {
-    console.log(`${app.get('port')}번 포트에서 대기 중....`)
+    logs.log(`server start >>> ${app.get('port')} port`)
 })
