@@ -1,17 +1,21 @@
 const moment = require('moment')
 
-exports.log = (param) => {
-    console.log(param)
+const logs = {
+    log: (param) => {
+        console.log(param)
+    },
+
+    debug: (param) => {
+        console.log(`[ ${moment().format('YYYY-MM-DD hh:mm:ss')} ] [DEBUG] >>> ${param}`)
+    },
+
+    warning: () => {
+        console.log(`[ ${moment().format('YYYY-MM-DD hh:mm:ss')} ] [WARNING] >>> ${param}`)
+    },
+
+    error: () => {
+        console.log(`[ ${moment().format('YYYY-MM-DD hh:mm:ss')} ] [ERROR] >>> ${param}`)
+    },
 }
 
-exports.debug = (param) => {
-    console.log(`[ ${moment().format('YYYY-MM-DD hh:mm:ss')} ] [DEBUG] >>> ${param}`)
-}
-
-exports.warning = () => {
-    console.log(`[ ${moment().format('YYYY-MM-DD hh:mm:ss')} ] [WARNING] >>> ${param}`)
-}
-
-exports.error = () => {
-    console.log(`[ ${moment().format('YYYY-MM-DD hh:mm:ss')} ] [ERROR] >>> ${param}`)
-}
+module.exports = logs

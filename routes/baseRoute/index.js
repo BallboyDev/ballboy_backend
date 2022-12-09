@@ -1,15 +1,13 @@
 const router = require('express').Router()
 
 router.get('/', async (req, res, next) => {
-    console.log('base')
-    res
-        .status(201)
-        .json({
-            data: 'base api "/"',
-            err: {
-
-            }
-        })
+    res.status(200).json({
+        data: {
+            method: 'GET',
+            param: { ...req.query },
+            api: '/'
+        },
+    })
 })
 
 module.exports = router

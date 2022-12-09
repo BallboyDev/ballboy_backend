@@ -2,7 +2,6 @@ const router = require('express').Router()
 const logs = require('../../utils').logs
 
 router.get('/', async (req, res, next) => {
-
     res.status(200).json({
         data: {
             method: 'GET',
@@ -10,16 +9,6 @@ router.get('/', async (req, res, next) => {
             api: '/test'
         },
     })
-
-    // for(let i = 0; i < 10; i++) {
-    //     res.status(200).json({
-    //         data: {
-    //             method: 'GET',
-    //             param: { ...req.query },
-    //             api: '/test'
-    //         },
-    //     })
-    // }
 })
 
 router.get('/err', async (req, res, next) => {
