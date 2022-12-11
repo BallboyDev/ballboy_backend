@@ -1,21 +1,30 @@
 const router = require('express').Router()
 const logs = require('../../utils').logs
 
+const setData = () => {
+    // default value: 'testRouter init api'
+
+    const env = process.env.DEBUG_SET.split(',')
+
+    return env
+}
+
 router.get('/', async (req, res, next) => {
     res.status(200).json({
-        data: {
-            method: 'GET',
-            param: { ...req.query },
-            api: '/test'
-        },
+        data: setData()
     })
 })
 
 router.get('/err', async (req, res, next) => {
-    res.status(200).json({
-        data: 'err test data',
-        err: {}
+    res.status(500).json({
+        err: {
+            ...req.query
+        }
     })
+})
+
+router.get('/database', (req, res, next) => {
+
 })
 
 module.exports = router

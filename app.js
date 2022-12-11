@@ -7,6 +7,7 @@ const routes = require('./routes')
 const {
     logs
 } = require('./utils')
+const connect = require('./databases')
 
 dotenv.config()
 
@@ -19,12 +20,19 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
+/****************************/
+/********* DATABASE *********/
+/****************************/
+connect()
+
 /***************************/
 /*********** API ***********/
 /***************************/
 app.use('/', routes.baseRoute)
 
 app.use('/test', routes.testRoute)
+
+app.use('/todo', routes.todoRoute)
 
 
 /***************************/

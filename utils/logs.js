@@ -1,21 +1,46 @@
 const moment = require('moment')
 
 const logs = {
-    log: (param) => {
-        console.log(param)
+    log: (...params) => {
+        if (!logSet('log')) return
+
+        console.log(`[ LOG ] / [ ${moment().format('YYYY-MM-DD hh:mm:ss')} ]`)
+        params.map((param) => {
+            console.log('    ', param)
+        })
     },
 
-    debug: (param) => {
-        console.log(`[ ${moment().format('YYYY-MM-DD hh:mm:ss')} ] [DEBUG] >>> ${param}`)
+    debug: (...params) => {
+        if (!logSet('debug')) return
+
+        console.log(`[ DEBUG ] / [ ${moment().format('YYYY-MM-DD hh:mm:ss')} ]`)
+        params.map((param) => {
+            console.log('    ', param)
+        })
     },
 
-    warning: () => {
-        console.log(`[ ${moment().format('YYYY-MM-DD hh:mm:ss')} ] [WARNING] >>> ${param}`)
+    warning: (...params) => {
+        if (!logSet('warning')) return
+
+        console.log(`[ WARNING ] / [ ${moment().format('YYYY-MM-DD hh:mm:ss')} ]`)
+        params.map((param) => {
+            console.log('    ', param)
+        })
     },
 
-    error: () => {
-        console.log(`[ ${moment().format('YYYY-MM-DD hh:mm:ss')} ] [ERROR] >>> ${param}`)
+    error: (...params) => {
+        if (!logSet('error')) return
+
+        console.log(`[ ERROR ] / [ ${moment().format('YYYY-MM-DD hh:mm:ss')} ]`)
+        params.map((param) => {
+            console.log('    ', param)
+        })
     },
+}
+
+const logSet = (log) => {
+    const env = process.env.DEBUG_SET.split(',')
+    return env.includes(log)
 }
 
 module.exports = logs
