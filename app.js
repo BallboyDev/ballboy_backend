@@ -34,6 +34,8 @@ app.use('/test', routes.testRoute)
 
 app.use('/todo', routes.todoRoute)
 
+app.use('/work', routes.workRoute)
+
 
 /***************************/
 /********** ERROR **********/
