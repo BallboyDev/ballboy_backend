@@ -8,7 +8,7 @@ const {
     logs
 } = require('./utils')
 // const connect = require('./databases')
-const { connectDb, disconnectDb } = require('./db')
+const {connect, disconnect} = require('./db')
 
 
 
@@ -27,7 +27,7 @@ const main = async () => {
     /****************************/
     /********* DATABASE *********/
     /****************************/
-    await connectDb('op')
+    connect('op')
 
     /***************************/
     /*********** API ***********/

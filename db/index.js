@@ -8,60 +8,71 @@ const dbHost = {
     "lge": "mongodb+srv://goorm_admin:9dpfwlfma@lge-op-cluster-usiqc.mongodb.net/goorm_test?retryWrites=true",
 }
 
-// const connect = () => {
-//     mongoose.connect(dbHost.op, {}, (err) => {
-//         if (err) {
-//             logs.error(err)
-//         } else {
-//             logs.log('connected MongoDB')
-//         }
-//     })
-// }
-
-// mongoose.connection.on('error', (err) => {
-//     logs.error('Connect ERROR', err)
-// })
-
-// mongoose.connection.on('disconnected', () => {
-//     logs.debug('Try Reconnection...')
-//     connect()
-// })
-
-// module.exports = connect;
-
-async function connectDb(where) {
-    if (where === "codepro") {
-        where = "lge";
-    }
-    if (!where) {
-        throw new Error("params required.");
-    }
-    return new Promise((resolve, reject) => {
-        mongoose.connect(dbHost[where], {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true,
-        });
-        mongoose.connection.once("open", resolve);
-        mongoose.connection.on(
-            "error",
-            reject ||
-            ((e) => {
-                logs.error("error", e);
-                process.exit();
-            })
-        );
-    });
+const connect = (service) => {
+    mongoose.connect(dbHost[service], {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+    }, (err) => {
+        if (err) {
+            logs.error(err)
+        } else {
+            logs.log('connected MongoDB')
+        }
+    })
 }
 
-/**
- * db 연결 해제
- */
-async function disconnectDb() {
-    return mongoose.disconnect();
+const disconnect = () => {
+    mongoose.disconnect();
 }
+
+mongoose.connection.on('error', (err) => {
+    logs.error('Connect ERROR', err)
+    connect()
+})
+
+mongoose.connection.on('disconnected', () => {
+    logs.log('disconnected MongoDB')
+})
 
 module.exports = {
-    connectDb,
-    disconnectDb,
+    connect, 
+    disconnect
 };
+
+// async function connectDb(where) {
+//     if (where === "codepro") {
+//         where = "lge";
+//     }
+//     if (!where) {
+//         throw new Error("params required.");
+//     }
+//     return new Promise((resolve, reject) => {
+//         mongoose.connect(dbHost[where], {
+//             useNewUrlParser: true,
+//             useUnifiedTopology: true,
+//             useCreateIndex: true,
+//         });
+//         mongoose.connection.once("open", resolve);
+//         mongoose.connection.on(
+//             "error",
+//             reject ||
+//             ((e) => {
+//                 logs.error("error", e);
+//                 process.exit();
+//             })
+//         );
+//     });
+// }
+
+// /**
+//  * db 연결 해제
+//  */
+// async function disconnectDb() {
+//     return mongoose.disconnect();
+// }
+
+// module.exports = {
+//     connectDb,
+//     disconnectDb,
+// };
