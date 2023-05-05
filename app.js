@@ -8,36 +8,42 @@ const {
     logs
 } = require('./utils')
 // const connect = require('./databases')
-const connect = require('./db')
+const { connectDb, disconnectDb } = require('./db')
 
-dotenv.config()
 
-app.use(cors({
-    credentials: true
-}))
-app.set('port', process.env.NODE_PORT || 3010)
 
-app.use(express.static(path.join(__dirname, 'public')))
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
+const main = async () => {
+    dotenv.config()
 
-/****************************/
-/********* DATABASE *********/
-/****************************/
-connect()
+    app.use(cors({
+        credentials: true
+    }))
+    app.set('port', process.env.NODE_PORT || 3010)
 
-/***************************/
-/*********** API ***********/
-/***************************/
-app.use('/', routes.baseRoute)
+    app.use(express.static(path.join(__dirname, 'public')))
+    app.use(express.json())
+    app.use(express.urlencoded({ extended: false }))
 
-/***************************/
-/********** ERROR **********/
-/***************************/
-app.use((err, req, res, next) => {
-    res.status(500).json({ err: 'error' })
-})
+    /****************************/
+    /********* DATABASE *********/
+    /****************************/
+    await connectDb('op')
 
-app.listen(app.get('port'), () => {
-    logs.log(`server start >>> ${app.get('port')} port`)
-})
+    /***************************/
+    /*********** API ***********/
+    /***************************/
+    app.use('/', routes.baseRoute)
+
+    /***************************/
+    /********** ERROR **********/
+    /***************************/
+    app.use((err, req, res, next) => {
+        res.status(500).json({ err: 'error' })
+    })
+
+    app.listen(app.get('port'), () => {
+        logs.log(`server start >>> ${app.get('port')} port`)
+    })
+}
+
+main()
