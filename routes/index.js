@@ -1,3 +1,4 @@
 module.exports = {
-    baseRoute: require('./baseRoute'),
+    base: require('./base'),
+    apis: require('./apis')
 }

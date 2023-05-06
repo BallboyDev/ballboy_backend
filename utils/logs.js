@@ -4,38 +4,49 @@ const logs = {
     log: (...params) => {
         if (!logSet('log')) return
 
-        console.log(`[ LOG ] / [ ${moment().format('YYYY-MM-DD hh:mm:ss')} ]`)
+        console.group(`[ LOG ] / [ ${moment().format('YYYY-MM-DD hh:mm:ss')} ]`)
         params.map((param) => {
-            console.log('    ', param)
+            console.log(param)
         })
+        console.groupEnd()
     },
 
     debug: (...params) => {
         if (!logSet('debug')) return
 
-        console.log(`[ DEBUG ] / [ ${moment().format('YYYY-MM-DD hh:mm:ss')} ]`)
+        console.group(`[ DEBUG ] / [ ${moment().format('YYYY-MM-DD hh:mm:ss')} ]`)
         params.map((param) => {
-            console.log('    ', param)
+            console.log(param)
         })
+        console.groupEnd()
     },
 
     warning: (...params) => {
         if (!logSet('warning')) return
 
-        console.log(`[ WARNING ] / [ ${moment().format('YYYY-MM-DD hh:mm:ss')} ]`)
+        console.group(`[ WARNING ] / [ ${moment().format('YYYY-MM-DD hh:mm:ss')} ]`)
         params.map((param) => {
-            console.log('    ', param)
+            console.log(param)
         })
+        console.groupEnd()
     },
 
     error: (...params) => {
         if (!logSet('error')) return
 
-        console.log(`[ ERROR ] / [ ${moment().format('YYYY-MM-DD hh:mm:ss')} ]`)
+        console.group(`[ ERROR ] / [ ${moment().format('YYYY-MM-DD hh:mm:ss')} ]`)
         params.map((param) => {
-            console.log('    ', param)
+            console.log(param)
         })
+        console.groupEnd()
     },
+
+    logTest: () => {
+        logs.log('log Test >>> log')
+        logs.debug('log Test >>> debug')
+        logs.warning('log Test >>> warning')
+        logs.error('log Test >>> error')
+    }
 }
 
 const logSet = (log) => {

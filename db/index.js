@@ -8,7 +8,7 @@ const dbHost = {
     "lge": "mongodb+srv://goorm_admin:9dpfwlfma@lge-op-cluster-usiqc.mongodb.net/goorm_test?retryWrites=true",
 }
 
-const connect = (service) => {
+const connect = async (service) => {
     mongoose.connect(dbHost[service], {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -36,43 +36,6 @@ mongoose.connection.on('disconnected', () => {
 })
 
 module.exports = {
-    connect, 
+    connect,
     disconnect
 };
-
-// async function connectDb(where) {
-//     if (where === "codepro") {
-//         where = "lge";
-//     }
-//     if (!where) {
-//         throw new Error("params required.");
-//     }
-//     return new Promise((resolve, reject) => {
-//         mongoose.connect(dbHost[where], {
-//             useNewUrlParser: true,
-//             useUnifiedTopology: true,
-//             useCreateIndex: true,
-//         });
-//         mongoose.connection.once("open", resolve);
-//         mongoose.connection.on(
-//             "error",
-//             reject ||
-//             ((e) => {
-//                 logs.error("error", e);
-//                 process.exit();
-//             })
-//         );
-//     });
-// }
-
-// /**
-//  * db 연결 해제
-//  */
-// async function disconnectDb() {
-//     return mongoose.disconnect();
-// }
-
-// module.exports = {
-//     connectDb,
-//     disconnectDb,
-// };

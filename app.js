@@ -8,12 +8,14 @@ const {
     logs
 } = require('./utils')
 // const connect = require('./databases')
-const {connect, disconnect} = require('./db')
+const { connect, disconnect } = require('./db')
 
 
 
 const main = async () => {
     dotenv.config()
+
+    // logs.logTest()
 
     app.use(cors({
         credentials: true
@@ -27,12 +29,13 @@ const main = async () => {
     /****************************/
     /********* DATABASE *********/
     /****************************/
-    connect('op')
+    await connect('op')
 
     /***************************/
     /*********** API ***********/
     /***************************/
-    app.use('/', routes.baseRoute)
+    app.use('/', routes.base)
+    app.use('/api', routes.apis)
 
     /***************************/
     /********** ERROR **********/
