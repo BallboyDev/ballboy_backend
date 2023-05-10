@@ -10,8 +10,6 @@ const {
 // const connect = require('./databases')
 const { connect, disconnect } = require('./db')
 
-
-
 const main = async () => {
     dotenv.config()
 
@@ -34,7 +32,10 @@ const main = async () => {
     /***************************/
     /*********** API ***********/
     /***************************/
+    // TEST API
     app.use('/', routes.base)
+
+    // 실제 서버 API
     app.use('/api', routes.apis)
 
     /***************************/
